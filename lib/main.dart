@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Localizations.override(
               context: context,
-              locale: const Locale('es'),
+              locale: const Locale('vi'),
               child: Builder(
                 builder: (context) {
                   // A toy example for an internationalized Material widget.
