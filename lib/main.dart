@@ -1,73 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [const Locale('en'), const Locale('vi')],
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+  State<MyApp> createState() => _MyAppState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class _MyAppState extends State<MyApp> {
+  Locale _locale = const Locale('en');
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
+  void _toggleLanguage() {
     setState(() {
-      _counter++;
+      _locale = _locale.languageCode == 'en' ? const Locale('vi') : const Locale('en');
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      locale: _locale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      home: MyHomePage(onToggleLanguage: _toggleLanguage),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  final VoidCallback onToggleLanguage;
+
+  const MyHomePage({super.key, required this.onToggleLanguage});
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(title: Text(localizations.title)),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Localizations.override(
-              context: context,
-              locale: const Locale('vi'),
-              child: Builder(
-                builder: (context) {
-                  // A toy example for an internationalized Material widget.
-                  return CalendarDatePicker(
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime(2100),
-                    onDateChanged: (value) {},
-                  );
-                },
-              ),
-            ),
-          ],
+        child: ElevatedButton(
+          onPressed: onToggleLanguage,
+          child: Text(localizations.languageToggle),
         ),
       ),
     );

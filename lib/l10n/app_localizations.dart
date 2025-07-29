@@ -98,11 +98,17 @@ abstract class AppLocalizations {
     Locale('vi'),
   ];
 
-  /// No description provided for @hello.
+  /// No description provided for @title.
   ///
   /// In en, this message translates to:
-  /// **'Hello World!'**
-  String get hello;
+  /// **'Hello'**
+  String get title;
+
+  /// No description provided for @languageToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to Vietnamese'**
+  String get languageToggle;
 }
 
 class _AppLocalizationsDelegate

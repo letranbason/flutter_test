@@ -9,5 +9,8 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get hello => 'Hello World!';
+  String get title => 'Hello';
+
+  @override
+  String get languageToggle => 'Switch to Vietnamese';
 }

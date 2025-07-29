@@ -1,3 +1,4 @@
 {
-    "hello": "Xin chào"
+  "title": "Xin chào",
+  "languageToggle": "Chuyển sang tiếng Anh"
 }
